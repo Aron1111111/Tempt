@@ -70,6 +70,74 @@ paths:
           content:
             application/json:
               schema: {$ref: '#/components/schemas/Error'}
+  /meetings/{id}/status:
+    patch:
+      operationId: changeMeetingStatus
+      summary: 修改活动状态 / Изменить статус встречи
+      description: 接口设计，尚未实现HTTP适配；只允许组织者按FR-STATUS转换。 / Проект API без HTTP-реализации;
+        правила FR-STATUS.
+      security:
+      - bearerAuth: []
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          minimum: 1
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - status
+              properties:
+                status:
+                  type: string
+                  enum:
+                  - draft
+                  - published
+                  - completed
+                  - cancelled
+      responses:
+        '200':
+          description: 状态已更新 / Статус обновлён
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Meeting'
+        '400':
+          description: INVALID_STATUS
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: 令牌缺失或无效 / Нет действительного токена
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: ROLE_FORBIDDEN
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: 活动不存在 / Встреча не найдена
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: INVALID_STATUS_TRANSITION
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
 components:
   securitySchemes:
     bearerAuth:
@@ -95,6 +163,7 @@ components:
           format: date-time
           example: '2026-11-01T15:00:00+03:00'
         location: {type: string, example: 'Библиотека зал 2'}
+        status: {type: string, enum: [draft, published, completed, cancelled]}
     Registration:
       type: object
       required: [id, meetingId, memberId, createdAt]
