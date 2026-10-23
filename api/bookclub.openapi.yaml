@@ -95,6 +95,11 @@ components:
           format: date-time
           example: '2026-11-01T15:00:00+03:00'
         location: {type: string, example: 'Библиотека зал 2'}
+        description:
+          type: string
+          minLength: 10
+          maxLength: 1000
+          description: "规范化后描述；先去除首尾空白 / Описание после удаления краевых пробелов"
     Registration:
       type: object
       required: [id, meetingId, memberId, createdAt]
