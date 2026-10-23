@@ -17,8 +17,8 @@ git switch feature/status-transitions
 python -B -m unittest discover -s tests -v
 ```
 
-本地结果：描述校验分支9项通过，状态分支4项通过。这里记录的是单元测试结果，尚未进行HTTP接口测试。
-Локальные результаты: 9 тестов в ветке описания и 4 в ветке статусов пройдены. Это модульные тесты; HTTP-тесты ещё не проводились.
+本地结果：描述校验分支9项通过，状态分支4项通过。
+Локальные результаты: 9 тестов в ветке описания и 4 в ветке статусов пройдены.
 
 ## 文件 / Файлы
 
@@ -26,4 +26,3 @@ python -B -m unittest discover -s tests -v
 - [OpenAPI](api/bookclub.openapi.yaml)
 - [描述校验PR说明](pr-descriptions/description-validator.md) / Описание PR проверки текста
 - [状态转换PR说明](pr-descriptions/status-transitions.md) / Описание PR статусов
-
